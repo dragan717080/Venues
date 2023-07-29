@@ -2,26 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    font-family: 'Asap', sans-serif;
+}
+
+.row {
+    @apply flex justify-center items-center;
+}
+
+.row-h {
+    @apply flex justify-center;
+}
+
+.row-v {
+    @apply flex items-center;
+}
+
+.row-end {
+    @apply flex justify-end;
+}
+
+.col-v {
+    @apply flex justify-center flex-col;
+}
+
+.col-h {
+    @apply flex items-center flex-col;
+}
+
+.inline-h {
+    @apply inline-flex justify-center;
+}
+
+.pointer {
+    @apply cursor-pointer;
+}
+
+.bg-main {
+    background-color: #332532;
+}
+
+.t-main {
+    font-family: 'Asap', sans-serif;
+}
+
+.u {
+    @apply uppercase;
+}
+
+.bg-logo {
+    background-color: #f75239;
+}
+
+.t-logo,
+.hover-logo:hover {
+    color: rgba(247, 82, 57, 0.7);
+}
+
+.tag-card {
+    height: 26rem;
+}
+
+.tag-card img {
+    height: 22rem;
+    width: 17rem;
+}
+
+.tag-title {
+    width: 70%;
+}
+
+.bg-img {
+    @apply bg-cover bg-no-repeat bg-center;
+}
+
+.text-three-dots-wrapper {
+    @apply whitespace-nowrap overflow-hidden text-ellipsis;
+}
+
+.max-w-fit {
+    max-width: fit-content;
 }

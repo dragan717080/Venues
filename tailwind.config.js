@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,12 +8,11 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-    },
+    }
   },
-  plugins: [],
+  plugins: [
+    require('./named-colors'),
+    require('@tailwindcss/forms')({strategy: 'class'}),
+    require('tailwind-scrollbar-hide')
+  ]
 }
