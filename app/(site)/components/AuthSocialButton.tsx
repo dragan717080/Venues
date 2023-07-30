@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import AuthSocialButtonProps from '@/app/interfaces/props/AuthSocialButtonProps';
 
-const AuthSocialButton: FC<AuthSocialButtonProps> = ({icon, onClick}) => {
+const AuthSocialButton: FC<AuthSocialButtonProps> = ({icon: Icon, onClick}) => {
   return (
     <button
       type="button"
@@ -23,7 +23,7 @@ const AuthSocialButton: FC<AuthSocialButtonProps> = ({icon, onClick}) => {
         focus:outline-offset-0
       "
     >
-      {icon()}
+      <Icon />
     </button>
   )
 }

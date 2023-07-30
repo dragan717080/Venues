@@ -2,7 +2,6 @@
 
 import React, { FC } from 'react'
 import clsx from 'clsx';
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import InputProps from '../../../interfaces/props/InputProps';
 
 const Input: FC<InputProps> = ({ label, id, type='text', required, register, errors, disabled }) => {

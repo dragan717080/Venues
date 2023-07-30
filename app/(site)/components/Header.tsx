@@ -1,5 +1,5 @@
 'use client';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { MagnifyingGlassIcon, GlobeAltIcon, UserCircleIcon, UsersIcon } from '@heroicons/react/24/outline';
@@ -8,8 +8,9 @@ import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInput } from '@/store/inputSlice';
+import { setCityNames } from '@/store/citySlice';
+import { RootState } from '@/store';
 import axios from 'axios';
-import { setCityNames } from '@/store/cityNamesSlice';
 
 const Header: FC = () => {
 
@@ -17,10 +18,10 @@ const Header: FC = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
-  const userInput = useSelector((state) => state.input.userInput);
-  const cities = useSelector((state) => state.cityNames.cityNames)
+  const userInput = useSelector((state: RootState) => state.input.userInput);
+  const cities = useSelector((state: RootState) => state.city.cityNames)
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setUserInput(e.target.value));
   };
 
@@ -59,7 +60,7 @@ const Header: FC = () => {
       <div className='flex just row-end items-center space-x-4 text-gray-500'>
         {session.status === 'authenticated'
           ? <div className='inline-flex'>
-            <div className='t-red'>{session.data.user.name}</div>
+            <div className='t-red'>{session.data!.user!.name}</div>
             <button className='t-cornflowerblue ml-3' onClick={async () => await signOut()} >Logout</button>
           </div>
           : <a href='auth'>Login</a>

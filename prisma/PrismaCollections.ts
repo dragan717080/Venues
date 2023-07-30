@@ -3,12 +3,16 @@ import { MongoItem, FindArgs, WhereInput } from "@/app/interfaces/types";
 import getPrismaData from "@/config/prisma/Query";
 import client from "@/app/libs/prismadb";
 
-const getCollection = async (
+const getCollection = async <T extends MongoItem>(
   col: string,
   relations: string[] = [],
   where: WhereInput = {}
-): Promise<MongoItem[]> => {
-  return getPrismaData<MongoItem[]>(client[col].findMany, relations, where);
+): Promise<T[]> => {
+  return getPrismaData<T[]>(
+    ((client as any)[col].findMany as any) as (args: FindArgs) => Promise<T[]>,
+    relations,
+    where
+  );
 };
 
 const getItem = async (
@@ -16,7 +20,7 @@ const getItem = async (
   relations: string[] = [],
   where: WhereInput = {}
 ): Promise<MongoItem | null> => {
-  return getPrismaData<MongoItem | null>(client[col].findUnique, relations, where);
+  return getPrismaData<MongoItem | null>((client as any)[col].findUnique, relations, where);
 };
 
 export { getCollection, getItem };

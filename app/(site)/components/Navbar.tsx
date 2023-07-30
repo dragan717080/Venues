@@ -2,8 +2,6 @@
 import { FC, useEffect } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import Toolbar from './Toolbar';
-import toolbarContent from '../../constants/ToolbarContent';
 import { MagnifyingGlassIcon, GlobeAltIcon, UserCircleIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { signOut } from 'next-auth/react';
 
@@ -23,7 +21,7 @@ const Navbar: FC = () => {
           <div className="ml-auto">
             {session.status === 'authenticated'
               ? <div className='inline-flex'>
-                <div className='t-red'>{session.data.user.name}</div>
+                <div className='t-red'>{session.data!.user!.name}</div>
                 <button className='t-cornflowerblue ml-3' onClick={async () => await signOut()} >Logout</button>
               </div>
               : <a href='auth u'>Login</a>

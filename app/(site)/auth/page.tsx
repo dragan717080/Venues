@@ -3,7 +3,7 @@
 import { useState, useEffect, FC, useCallback } from 'react';
 import Image from 'next/image';
 import { signIn, useSession } from 'next-auth/react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, useForm, SubmitHandler } from 'react-hook-form';
 import { Input, Button, AuthSocialButton } from '../components';
 import { BsGithub, BsGoogle } from 'react-icons/bs';
 import { useRouter } from "next/navigation";

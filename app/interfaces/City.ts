@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 export default interface City {
   id: string;
   coordinates: string[] | number [];
@@ -9,7 +11,15 @@ export default interface City {
   alternate_names: string | string[];
   population: string[];
   digital_elevation_model: number;
-  img: string?;
+  img?: string;
+}
+
+export interface FamousCity {
+  ascii_name: string;
+  name?: string;
+  year_founded: number | string;
+  description: string;
+  img: string;
 }
 
 export type CitySelect = Prisma.CitySelect;

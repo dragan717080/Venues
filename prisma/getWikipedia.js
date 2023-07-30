@@ -1,18 +1,13 @@
 const axios = require('axios');
 
 const names = [
-  'Tokyo',
-  'New York City',
   'London',
-  'Paris',
-  'Singapore',
+  'Stockholm',
+  'Rome',
   'Dubai',
   'Rome',
   'Beijing',
-  'Istanbul',
-  'Los Angeles',
-  'Sydney',
-  'Cairo',
+  'Manchester'
 ];
 
 async function fetchImageForBoston() {

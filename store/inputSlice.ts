@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface InputState {
-  userInput: string;
-}
+import { InputState } from '@/app/interfaces/redux';
 
 const initialState: InputState = {
   userInput: '',
