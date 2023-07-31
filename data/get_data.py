@@ -2,6 +2,9 @@ import requests
 from database_atlas import DatabaseAtlas
 from utils import Utils
 from dotenv import dotenv_values
+from config.cities import CITIES
+import json
+import random
 
 API_KEY = dotenv_values(".env")['OPENTRIPMAP_API_KEY']
 GEONAMES_USERNAME = dotenv_values(".env")['GEONAMES_USERNAME']
@@ -30,6 +33,43 @@ def search_populations():
         else:
             print(f"Error occurred: {response.status_code}")
             break
+
+def get_random_city_images():
+    d = {}
+    for city in CITIES:
+        result = requests.get(f"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&piprop=original&titles={city}").json()
+        try:
+            page_id = list(result['query']['pages'].keys())[0]
+            d[city] = result['query']['pages'][page_id]['original']['source']
+        except Exception as e:
+            continue
+    with open('config/random_cities_images.json', 'w') as f:
+        json.dump(d, f)
+
+def get_images_for_cities():
+    for item in DatabaseAtlas.findAll('populations')[::-1]:
+        try:
+            result = requests.get(f"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&piprop=original&titles={item['ascii_name']}").json()
+            page_id = list(result['query']['pages'].keys())[0]
+            DatabaseAtlas.updateOne('populations', {'ascii_name': item['ascii_name']}, {'img': result['query']['pages'][page_id]['original']['source']})
+        except Exception as e:
+            print(f"Exception occurred for city {item['ascii_name']}: {e}")
+            if e == 'original':
+                DatabaseAtlas.updateOne('populations', {'ascii_name': item['ascii_name']}, {'img': 'https://upload.wikimedia.org/wikipedia/commons/9/96/ISH_WC_Boston4.jpg'})
+            continue
+
+def update_images_for_cities():
+    with open('config/random_cities_images.json', 'r') as f:
+        random_images = list(json.load(f).values())
+    for item in DatabaseAtlas.findAll('populations')[::-1]:
+        try:
+            result = requests.get(f"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&piprop=original&titles={item['ascii_name']}").json()
+            page_id = list(result['query']['pages'].keys())[0]
+            DatabaseAtlas.updateOne('populations', {'ascii_name': item['ascii_name']}, {'img': result['query']['pages'][page_id]['original']['source']})
+        except Exception as e:
+            print(f"Exception occurred for city {item['ascii_name']}: {e}")
+            DatabaseAtlas.updateOne('populations', {'ascii_name': item['ascii_name']}, {'img': random.choice(random_images)})
+            continue
 
 if __name__ == "__main__":
 

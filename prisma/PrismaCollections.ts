@@ -9,7 +9,7 @@ const getCollection = async <T extends MongoItem>(
   where: WhereInput = {}
 ): Promise<T[]> => {
   return getPrismaData<T[]>(
-    ((client as any)[col].findMany as any) as (args: FindArgs) => Promise<T[]>,
+    (client as any)[col].findMany as (args: FindArgs) => Promise<T[]>,
     relations,
     where
   );

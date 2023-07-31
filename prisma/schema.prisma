@@ -50,4 +50,5 @@ model City {
   country_code String
   population Int
   digital_elevation_model Int
+  img String
 }
