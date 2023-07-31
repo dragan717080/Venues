@@ -98,8 +98,8 @@
 
 .translate-down-gradually {
     opacity: 0;
-    transform: translateY(-100px);
-    transition: opacity 1s, transform 1s;
+    transform: translateY(100px);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
 
 .show {
@@ -110,7 +110,7 @@
 .reverse-show {
     opacity: 0;
     transform: translateY(-100px);
-    transition: opacity 2s, transform 2s;
+    transition: opacity 2s ease-in-out, transform 2s ease-in-out;
 }
 
 .spinner {
