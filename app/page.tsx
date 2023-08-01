@@ -12,7 +12,7 @@ export default function Home() {
     <Provider store={store} >
       <Header />
       <div className="flex-1 col-v shadow-md">
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="flex min-h-screen flex-col items-center justify-between">
           <Venues />
           1
         </main>

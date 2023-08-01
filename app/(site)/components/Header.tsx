@@ -8,22 +8,26 @@ import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInput } from '@/store/inputSlice';
-import { setCityNames, setCitiesMatchingInput } from '@/store/citySlice';
+import { setCityNames, setCitiesMatchingInput, setSelectedCity } from '@/store/citySlice';
 import { RootState } from '@/store';
 import HeaderSearchMenu from './HeaderSearchMenu';
 import { HeaderDateRange } from '.';
+import { ReactNode } from 'react';
 import axios from 'axios';
+import { BaseCity } from '@/app/interfaces/City';
 
 const Header: FC = () => {
 
   const session = useSession();
   const router = useRouter();
-  const searchRef = useRef(null);
-  const headerRef = useRef(null);
-  const dateRef = useRef(null);
-  const datePickerRef = useRef(null);
-  const DatePicker = forwardRef((props, ref) => (
+  const searchRef = useRef<HTMLInputElement|null>(null);
+  const headerRef = useRef<HTMLElement|null>(null);
+  const dateRef = useRef<HTMLDivElement|null>(null);
+  const datePickerRef = useRef<HTMLDivElement|null>(null);
+  const DatePicker = forwardRef<HTMLDivElement, { children : ReactNode }>((props, ref) => (
     <div ref={ref}>{props.children}</div>))
+
+  DatePicker.displayName = 'DatePicker';
 
   const [headerHeight, setHeaderHeight] = useState<number>(0);
 
@@ -33,13 +37,12 @@ const Header: FC = () => {
   const selectedCity = useSelector((state: RootState) => state.city.selectedCity);
   const citiesMatchingInput = useSelector((state: RootState) => state.city.citiesMatchingInput);
 
-  const setCitiesThatMatch = (cities) => {
+  const setCitiesThatMatch = (cities: BaseCity[]) => {
     const inputLimit: number = 10;
 
-    const input = searchRef.current.value.toLowerCase();
+    const input = searchRef.current!.value;
     console.log(cities.length)
-    console.log(searchRef.current.value);
-    if (searchRef.current.value === '') {
+    if (input === '') {
       dispatch(setCitiesMatchingInput([]));
       return;
     }
@@ -49,19 +52,20 @@ const Header: FC = () => {
         return result;
       }
 
-      if (city.ascii_name.toLowerCase().includes(input)) {
+      if (city.ascii_name.toLowerCase().includes(input!.toLowerCase())) {
         result.push(city);
       }
 
       return result;
-    }, []);
+    }, [] as BaseCity[]);
     console.log('citiesThatMatch', citiesThatMatch)
     dispatch(setCitiesMatchingInput(citiesThatMatch));
   }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCitiesThatMatch(cities);
-    dispatch(setUserInput(searchRef.current.value));
+    dispatch(setUserInput(searchRef.current!.value));
+    dispatch(setSelectedCity(''));
   };
 
   useEffect(() => {
@@ -78,16 +82,16 @@ const Header: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (headerRef.current.style) {
+    if (headerRef.current!.style) {
       console.log(headerRef.current)
-      console.log(headerRef.current.style)
-      //headerRef.current.style.height = `${headerRef.current.clientHeight} - ${datePickerRef.current.clientHeight} px`;
+      console.log(headerRef.current!.style)
+      //headerRef.current!.style.height = `${headerRef.current!.clientHeight} - ${datePickerRef.current!.clientHeight} px`;
     }
   }, [])
 
   useLayoutEffect(() => {
     if (!headerRef.current) return;
-    setHeaderHeight(headerRef.current.clientHeight);
+    setHeaderHeight(headerRef.current!.clientHeight);
   }, []);
 
   return (

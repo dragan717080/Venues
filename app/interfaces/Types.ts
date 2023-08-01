@@ -24,4 +24,6 @@ type MongoItem = MongoObjectIDKey & { additionalProp: string };
 type FindArgs = Prisma.UserFindManyArgs | Prisma.UserFindUniqueArgs | Prisma.CityFindManyArgs | Prisma.CityFindUniqueArgs;
 type WhereInput = Prisma.UserWhereInput | Prisma.UserWhereUniqueInput | Prisma.CityWhereInput | Prisma.CityWhereUniqueInput;
 
-export type { AuthVariant, StringObject, MongoObjectIDKey, MongoItem, FindArgs, WhereInput, QueryOptions, AccWithTag };
+type ApiHandler<T = any> = (req: NextRequest | Request, res: NextResponse<T>) => Promise<any>;
+
+export type { AuthVariant, StringObject, MongoObjectIDKey, MongoItem, FindArgs, WhereInput, QueryOptions, AccWithTag, ApiHandler };

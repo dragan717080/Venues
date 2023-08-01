@@ -5,10 +5,13 @@ import { DateRangePicker } from 'react-date-range';
 import { RootState } from '@/store';
 import { setUserInput } from '@/store/inputSlice';
 import { setSelectedCity } from '@/store/citySlice';
+import { DateRange } from 'react-date-range';
+import { RangeKeyDict } from 'react-date-range';
+import HeaderDateProps, { HeaderDateRangeProps } from '@/app/interfaces/props/HeaderDateRangeProps';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
-const HeaderDateRange: FC = ({header, originalHeaderHeight}) => {
+const HeaderDateRange: FC<HeaderDateProps> = ({header, originalHeaderHeight}) => {
 
   const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -18,17 +21,20 @@ const HeaderDateRange: FC = ({header, originalHeaderHeight}) => {
 
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
-  const toggleRef = useRef(null);
+  const toggleRef = useRef<HTMLDivElement|null>(null);
 
-  const selectionRange = {
+  const selectionRange: HeaderDateRangeProps = {
     startDate,
     endDate,
     key: 'selection'
   }
 
-  const handleSelect = (ranges) => {
-    setStartDate(ranges.selection.startDate);
-    setEndDate(ranges.selection.endDate);
+  // Need to be declared here in order to avoid circular multiple exports error
+
+  const handleSelect = (ranges: RangeKeyDict) => {
+    console.log(ranges);
+    setStartDate(ranges.selection.startDate ?? new Date());
+    setEndDate(ranges.selection.endDate ?? new Date());
   }
 
   const show = (node: HTMLElement|undefined, reverse: boolean = false) => {
@@ -45,23 +51,20 @@ const HeaderDateRange: FC = ({header, originalHeaderHeight}) => {
   const cancel = () => {
     dispatch(setUserInput(''));
     dispatch(setSelectedCity(''));
-    show(toggleRef.parentNode, true);
+    show((toggleRef.current?.parentNode as HTMLElement) ?? undefined, true);
   }
 
   const toggleShow = useCallback(async (node: HTMLElement | null) => {
     if (!node) return;
+    (node.getElementsByClassName('rdrInputRange')[0] as HTMLDivElement).innerText = `Pick days to visit ${selectedCity}!`;
     show(node, selectedCity === '');
     
   }, [selectedCity])
 
-  useEffect(() => {
-
-  }, []);
-
   return (
 
-    <div className={`${selectedCity ? 'block' : 'hidden'}`}>
-    <div ref={toggleShow} className='translate-down-gradually bg-white w-full mx-auto col-h'>
+    <div className={`${selectedCity ? 'block' : 'hidden'} scale-x-60 origin-top-left`}>
+    <div ref={toggleShow} className='translate-down-gradually bg-white w-full md:scale-100 mx-auto transform flex flex-col md:items-center'>
       <div ref={toggleRef} >
       <div>
         <DateRangePicker
@@ -71,7 +74,7 @@ const HeaderDateRange: FC = ({header, originalHeaderHeight}) => {
           onChange={handleSelect}
           className="bg-red"
         />
-        <div className='flex pt-2'>
+        <div className='flex pt-2 date-options'>
           <button className='flex-grow text-gray-500' onClick={() => cancel()} >Cancel</button>
           <button className='flex-grow text-red-400' onClick={() => search()}>Search</button>
         </div>

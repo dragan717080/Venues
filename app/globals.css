@@ -54,6 +54,10 @@ body {
     background-color: #f75239;
 }
 
+.bold {
+    @apply font-bold;
+}
+
 .t-logo,
 .hover-logo:hover {
     color: rgba(247, 82, 57, 0.7);
@@ -82,4 +86,27 @@ body {
 
 .max-w-fit {
     max-width: fit-content;
+}
+
+.venues {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+}
+
+.scale-x-60 {
+    transform: scaleX(0.6);
+}
+
+.scale-x-170 {
+    transform: scaleX(1.7);
+}
+
+@media screen and (max-width: 700px) {
+    .date {
+        transform: scaleX(1);
+    }
+
+    .date-options {
+        transform: scaleX(1.7);
+        @apply origin-left;
+    }
 }

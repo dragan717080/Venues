@@ -23,6 +23,7 @@
     "bcrypt": "^5.1.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
+    "dompurify": "^3.0.5",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "next": "13.4.12",
@@ -43,6 +44,8 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0"
+    "@types/bcrypt": "^5.0.0",
+    "@types/date-fns": "^2.6.0",
+    "@types/react-date-range": "^1.4.4"
   }
 }

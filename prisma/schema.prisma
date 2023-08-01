@@ -24,18 +24,18 @@ model User {
 }
 
 model Account {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String   @db.ObjectId
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.String
-  access_token       String?  @db.String
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.String
-  session_state      String?
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -43,12 +43,35 @@ model Account {
 }
 
 model City {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  coordinates String[]
-  ascii_name String @unique
-  label_en String
-  country_code String
-  population Int
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  coordinates             String[]
+  ascii_name              String   @unique
+  label_en                String
+  country_code            String
+  population              Int
   digital_elevation_model Int
-  img String
+  img                     String
+
+  venues Venue[]
+}
+
+model Venue {
+  id                     String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                   String
+  state                  String
+  country                String
+  country_code           String
+  coordinates            Float
+  address                String
+  neighbourhood          String
+  wikidata               String
+  rate                   Int
+  kinds                  String[]
+  // Default 400x300
+  preview                String
+  wikipedia_extract      String
+  wikipedia_extract_html String
+
+  cityId String @db.ObjectId
+  city   City   @relation(fields: [cityId], references: [id], onDelete: Cascade)
 }

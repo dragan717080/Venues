@@ -25,9 +25,10 @@ const HeaderSearchMenu: FC = () => {
           <div
             className="mx-auto py-2 pl-2 row space-x-4 hover:bg-gray-200 hover:scale-105 active:scale-95 transition transform duration-200 ease-out pointer"
             onClick={(e) => handleSelectCity(e, city)}
-            key={index} >
+            key={index} 
+          >
             <div className='relative h-16 w-24' >
-              <Image layout='fill' alt={`${city.ascii_name} Image`} src={city.img} className='rounded-xl' />
+              <Image fill alt={`${city.ascii_name} Image`} src={city.img ?? ''} className='rounded-xl' sizes='6rem' />
             </div>
             <div className='w-[10rem] overflow-hidden text-ellipsis whitespace-nowrap space-y-0'>
               {city.ascii_name}
