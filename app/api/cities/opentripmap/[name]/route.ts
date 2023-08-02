@@ -5,7 +5,8 @@ import client from "@/app/libs/prismadb";
 import { ApiHandler } from "@/app/interfaces/types";
 import StringUtils from "@/app/utils/StringUtils";
 import City from "@/app/interfaces/City";
-import cheerio from 'cheerio';
+import Venue from "@/app/interfaces/Venue";
+import Venues, { VenuesAPIResponse } from "@/app/interfaces/Venues";
 import axios from "axios";
 
 const getVenue = async (xid: string) => {
@@ -32,12 +33,9 @@ const getVenue = async (xid: string) => {
       .then(response => {
         const data = response.data;
         const pages = data.query.pages;
-        console.log('pages', pages)
         const pageId = Object.keys(pages)[0];
-        console.log('pageId', pageId)
         const imageUrl = pages[pageId].imageinfo[0].url;
 
-        console.log('imageUrl', imageUrl)
         return decodeURIComponent(imageUrl);
       })
       .catch(error => {
@@ -45,12 +43,7 @@ const getVenue = async (xid: string) => {
       });
   }
 
-  console.log('venuimg1', venue.image);
-
-  console.log('name', venue.name);
-
   venue.img = await getImage(decodeURIComponent(venue.image));
-  console.log('venuimg', venue.img);
 
   const venueData = {
     'xid': venue.xid,
@@ -72,12 +65,12 @@ const getVenue = async (xid: string) => {
   return venueData;
 }
 
-const getVenuesForCity: ApiHandler = async (req, res) => {
+const getVenuesForCity: ApiHandler<Venues> = async (req, res) => {
 
   const name = decodeURIComponent(req.url.split('/')[req.url.split('/').length - 1]);
 
   try {
-    const cityItem: String[] = await client.city.findFirst({
+    const cityItem: Partial<City>|null = await client.city.findFirst({
       where: {
         ascii_name: name
       },
@@ -87,11 +80,13 @@ const getVenuesForCity: ApiHandler = async (req, res) => {
       }
     })
 
-    console.log('cityItem', cityItem)
-    const { coordinates, img } = cityItem;
-    console.log('coordinates', coordinates)
+    if (cityItem === null) {
+      return NextResponse.json({'error': 'City not found'}, {'status': 404})
+    }
 
-    const coordinatesNum = coordinates.map((coordinate: string) =>
+    const { coordinates, img } = cityItem;
+
+    const coordinatesNum = (coordinates as unknown as string[]).map((coordinate: string) =>
       StringUtils.getNumericCoordinate(coordinate));
 
     const URL = `${process.env.OPENTRIPMAPAPI_BASE_URL}/places/radius`;
@@ -105,12 +100,13 @@ const getVenuesForCity: ApiHandler = async (req, res) => {
     // For first visit only first number of venues and first venue image are 
     const response = await axios.get(URL, { params });
     const data = await response.data;
-    const allVenuesInCity = data.features.filter((item) =>
-      item.properties.rate > 2);
-    const venuesNum = allVenuesInCity.length;
-    const allVenuesNames = allVenuesInCity.map((item) => item.properties.name);
+    const allVenuesInCity = (data: VenuesAPIResponse[]): VenuesAPIResponse[] =>
+      data.features.filter((item) => item.properties.rate > 2);
+    const filteredValues = allVenuesInCity(data);
+    const venuesNum = filteredValues.length;
+    const allVenuesNames = filteredValues.map((item) => item.properties.name);
 
-    const allVenuesDetails: Promise<any>[] = allVenuesInCity.slice(0, 9).map(async (venue) => {
+    const allVenuesDetails: Promise<any>[] = filteredValues.slice(0, 9).map(async (venue) => {
       const venueData = await getVenue(venue.properties.xid);
       return venueData;
     });

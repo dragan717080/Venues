@@ -14,7 +14,7 @@ export default function Home() {
       <div className="flex-1 col-v shadow-md">
         <main className="flex min-h-screen flex-col items-center justify-between">
           <Venues />
-          1
+          <p className='mb-10'>More features will be added in the future</p>
         </main>
       </div>
       <Footer />

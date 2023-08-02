@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 type AuthVariant = 'LOGIN' | 'REGISTER';
 

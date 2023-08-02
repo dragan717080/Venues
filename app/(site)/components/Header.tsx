@@ -41,7 +41,6 @@ const Header: FC = () => {
     const inputLimit: number = 10;
 
     const input = searchRef.current!.value;
-    console.log(cities.length)
     if (input === '') {
       dispatch(setCitiesMatchingInput([]));
       return;
@@ -58,7 +57,6 @@ const Header: FC = () => {
 
       return result;
     }, [] as BaseCity[]);
-    console.log('citiesThatMatch', citiesThatMatch)
     dispatch(setCitiesMatchingInput(citiesThatMatch));
   }
 
@@ -80,14 +78,6 @@ const Header: FC = () => {
       }
     })();
   }, []);
-
-  useEffect(() => {
-    if (headerRef.current!.style) {
-      console.log(headerRef.current)
-      console.log(headerRef.current!.style)
-      //headerRef.current!.style.height = `${headerRef.current!.clientHeight} - ${datePickerRef.current!.clientHeight} px`;
-    }
-  }, [])
 
   useLayoutEffect(() => {
     if (!headerRef.current) return;
@@ -116,7 +106,7 @@ const Header: FC = () => {
           />
           <MagnifyingGlassIcon className='h-8 mr-2 p-2 bg-red-400 text-white rounded-full pointer hidden md:inline-flex md:mx-2' />
         </div>
-        <div className='flex just row-end items-center space-x-4 text-gray-500'>
+        <div className='flex just row-end items-center space-x-4 text-gray-500 sm:pr-6 md:pr-18'>
           {session.status === 'authenticated'
             ? <div className='inline-flex'>
               <div className='t-red'>{session.data!.user!.name}</div>

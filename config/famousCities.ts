@@ -34,10 +34,10 @@ const famousCities: FamousCity[] = [
         description: "Stockholm is a city of stunning beauty, where history seamlessly blends with modernity. Built on 14 islands connected by bridges, Stockholm is often referred to as the 'Venice of the North' for its scenic waterfronts, charming canals, and lush greenery.",
     },
     {
-        ascii_name: 'Dubai',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Dubai_Skylines_at_night_%28Pexels_3787839%29.jpg',
-        year_founded: '1833',
-        description: "A dazzling oasis in the desert, Dubai is a city of awe-inspiring modernity and boundless ambition. Situated in the United Arab Emirates, Dubai has risen from humble beginnings to become a global metropolis renowned for its futuristic architecture, opulent lifestyle, and world-class attractions.",
+        ascii_name: 'Shanghai',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/d/df/Pudong_Shanghai_November_2017_panorama.jpg',
+        year_founded: '752',
+        description: "A vibrant and modern metropolis, Shanghai is China's financial and commercial hub. With its iconic skyline, historical landmarks, and bustling streets, it offers a fascinating blend of tradition and innovation.",
     },
     {
         ascii_name: 'Rome',

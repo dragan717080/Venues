@@ -46,6 +46,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/date-fns": "^2.6.0",
+    "@types/dompurify": "^3.0.2",
     "@types/react-date-range": "^1.4.4"
   }
 }

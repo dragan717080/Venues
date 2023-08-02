@@ -8,6 +8,8 @@ import { setSelectedCity } from '@/store/citySlice';
 import { DateRange } from 'react-date-range';
 import { RangeKeyDict } from 'react-date-range';
 import HeaderDateProps, { HeaderDateRangeProps } from '@/app/interfaces/props/HeaderDateRangeProps';
+import { toast } from 'react-hot-toast';
+import { differenceInDays } from 'date-fns';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
@@ -29,10 +31,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({header, originalHeaderHeight}) =>
     key: 'selection'
   }
 
-  // Need to be declared here in order to avoid circular multiple exports error
-
   const handleSelect = (ranges: RangeKeyDict) => {
-    console.log(ranges);
     setStartDate(ranges.selection.startDate ?? new Date());
     setEndDate(ranges.selection.endDate ?? new Date());
   }
@@ -45,7 +44,12 @@ const HeaderDateRange: FC<HeaderDateProps> = ({header, originalHeaderHeight}) =>
   }
 
   const search = () => {
-    console.log(1);
+    const daysDuration: number = differenceInDays(endDate, startDate);
+    if (daysDuration < 1) {
+      toast.error('You need to stay at least 1 day!');
+      return;
+    }
+    toast.success(`You have booked ${daysDuration} days stay in ${selectedCity}`);
   }
 
   const cancel = () => {
@@ -63,7 +67,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({header, originalHeaderHeight}) =>
 
   return (
 
-    <div className={`${selectedCity ? 'block' : 'hidden'} scale-x-60 origin-top-left`}>
+    <div className={`${selectedCity ? 'block' : 'hidden'} origin-top-left date`}>
     <div ref={toggleShow} className='translate-down-gradually bg-white w-full md:scale-100 mx-auto transform flex flex-col md:items-center'>
       <div ref={toggleRef} >
       <div>

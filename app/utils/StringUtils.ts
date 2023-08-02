@@ -6,7 +6,7 @@ abstract class StringUtils {
     return ['S', 'W'].includes(direction) ? -parseFloat(coordinate) : parseFloat(coordinate);
   }
 
-  static snakeCaseStrToCapitalizedArray(str): string[] {
+  static snakeCaseStrToCapitalizedArray(str: string): string[] {
     return str.split(',').map(word => {
       const words = word.split('_');
       const capitalizedWords = words.map((w, index) => index === 0 ? w.charAt(0).toUpperCase() + w.slice(1) : w);

@@ -6,7 +6,7 @@ export interface BaseCity {
 }
 
 export default interface City extends BaseCity {
-  coordinates: string[] | number [];
+  coordinates: string[];
   timezone: string;
   name: string;
   label_en: string;

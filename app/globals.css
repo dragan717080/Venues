@@ -102,9 +102,11 @@ body {
 
 @media screen and (max-width: 700px) {
     .date {
-        transform: scaleX(1);
+        transform: scaleX(0.6);
     }
+}
 
+@media screen and (max-width: 450px) {
     .date-options {
         transform: scaleX(1.7);
         @apply origin-left;

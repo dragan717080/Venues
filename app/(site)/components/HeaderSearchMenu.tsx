@@ -10,7 +10,6 @@ const HeaderSearchMenu: FC = () => {
 
   const userInput = useSelector((state: RootState) => state.input.userInput);
   const citiesMatchingInput = useSelector((state: RootState) => state.city.citiesMatchingInput);
-  console.log('citiesMatchingInput', citiesMatchingInput)
   const dispatch = useDispatch();
 
   const handleSelectCity = (e: MouseEvent<HTMLElement>, city: BaseCity) => {

@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Venues App',
-  description: 'App built with Next.js, TypeScript, Tailwind, MongoDB, NextAuth and Prisma',
+  description: 'App built with Next.js, TypeScript, Tailwind, MongoDB, NextAuth, Prisma and Python',
 }
 
 export default function RootLayout({
