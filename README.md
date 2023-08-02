@@ -31,3 +31,6 @@ The Venues App is a web application built with Next.js and TypeScript that allow
 ## Get Started 🚀🌟
 
 Embark on your journey of exploration with the Venues App. Let's set off together and uncover the magic of cities and their incredible venues. Welcome to the Venues App - your gateway to the world of endless possibilities!
+
+## App hosted on Vercel ##
+https://n-two-jet.vercel.app/

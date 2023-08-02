@@ -7,6 +7,7 @@ import StringUtils from "@/app/utils/StringUtils";
 import City from "@/app/interfaces/City";
 import Venue from "@/app/interfaces/Venue";
 import Venues, { VenuesAPIResponse } from "@/app/interfaces/Venues";
+import VenuesAPIResponseItem from "@/app/interfaces/VenuesAPIResponseItem";
 import axios from "axios";
 
 const getVenue = async (xid: string) => {
@@ -100,7 +101,7 @@ const getVenuesForCity: ApiHandler<Venues> = async (req, res) => {
     // For first visit only first number of venues and first venue image are 
     const response = await axios.get(URL, { params });
     const data = await response.data;
-    const allVenuesInCity = (data: VenuesAPIResponse[]): VenuesAPIResponse[] =>
+    const allVenuesInCity = (data: VenuesAPIResponse): VenuesAPIResponseItem[] =>
       data.features.filter((item) => item.properties.rate > 2);
     const filteredValues = allVenuesInCity(data);
     const venuesNum = filteredValues.length;
