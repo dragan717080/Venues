@@ -27,4 +27,9 @@ type WhereInput = Prisma.UserWhereInput | Prisma.UserWhereUniqueInput | Prisma.C
 
 type ApiHandler<T = any> = (req: NextRequest | Request, res: NextResponse<T>) => Promise<any>;
 
+export default interface BaseImage {
+  name: string;
+  img: string;
+}
+
 export type { AuthVariant, StringObject, MongoObjectIDKey, MongoItem, FindArgs, WhereInput, QueryOptions, AccWithTag, ApiHandler };

@@ -106,12 +106,12 @@ const Header: FC = () => {
           />
           <MagnifyingGlassIcon className='h-8 mr-2 p-2 bg-red-400 text-white rounded-full pointer hidden md:inline-flex md:mx-2' />
         </div>
-        <div className='flex just row-end items-center space-x-4 text-gray-500 sm:pr-6 md:pr-18'>
+        <div className='flex row-end items-center space-x-4 text-gray-500 sm:pr-6 md:pr-18'>
           {session.status === 'authenticated'
             ? <div className='inline-flex'>
               <div className='t-red'>{session.data!.user!.name}</div>
               <button className='t-cornflowerblue ml-3' onClick={async () => await signOut()} >Logout</button>
-            </div>
+          </div>
             : <a href='auth'>Login</a>
           }
         </div>
