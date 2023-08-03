@@ -10,3 +10,10 @@ export interface CityState {
 export interface InputState {
   userInput: string;
 }
+
+export interface VisitState {
+  daysDuration: number;
+  agency: string;
+  adults: number;
+  children: number;
+}

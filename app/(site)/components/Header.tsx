@@ -79,11 +79,6 @@ const Header: FC = () => {
     })();
   }, []);
 
-  useLayoutEffect(() => {
-    if (!headerRef.current) return;
-    setHeaderHeight(headerRef.current!.clientHeight);
-  }, []);
-
   return (
     <header ref={headerRef} className='sticky top-0 z-20 bg-white shadow-md py-5 px-7 md:px-10'>
       <div className='grid grid-cols-3 '>
