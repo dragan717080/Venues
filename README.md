@@ -11,6 +11,7 @@ The Venues App is a web application built with Next.js and TypeScript that allow
 - **Tailwind CSS** - CSS framework for styling
 - **MongoDB** - NoSQL database for data storage
 - **Prisma** - Database toolkit and ORM
+- **Redux** - Global state management library
 - **NextAuth.js** - Authentication library for Next.js
 - **Python** - Backend scripting language
 
