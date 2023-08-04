@@ -5,7 +5,7 @@ import travelAgencies from '@/config/travelAgencies';
 const TravelAgencies: FC = () => {
   return (
     <section className='col-h'>
-      <div className='grid mx-auto grid-cols-10 gap-4 mb-6'>
+      <div className='grid mx-auto grid-cols-2 md:grid-cols-5 2xl:grid-cols-10 gap-4 mb-6'>
         {travelAgencies.map((agency: string, index: number) => (
           <div className="relative h-8 w-20" key={index} >
             <Image

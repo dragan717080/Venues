@@ -100,9 +100,17 @@ body {
     transform: scaleX(1.7);
 }
 
+.date-options-select span {
+    font-size: 0.875rem;
+}
+
 @media screen and (max-width: 700px) {
     .date {
         transform: scaleX(0.6);
+    }
+
+    .date-options-select button span{
+        font-size: 0.625rem;
     }
 }
 

@@ -15,19 +15,8 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { setDaysDuration, setAgency, setAdults, setChildren } from '@/store/visitSlice';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './SelectComponents';
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-} from './FormCn';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './shadcn/Select';
+import { Form, FormField, FormItem, FormLabel } from './shadcn/Form';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 
 const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) => {
@@ -72,7 +61,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
       toast.error('You need to stay at least 1 day!');
       return;
     }
-    
+
     dispatch(setDaysDuration(durationInDays));
 
     const params = new URLSearchParams();
@@ -113,7 +102,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
             <form action={formData => {
               console.log(formData)
             }} >
-              <div className='relative grid grid-cols-3 gap-x-4 z-50'>
+              <div className='relative grid grid-cols-3 gap-x-4 z-50 transform scale-x-[1.75] origin-left md:scale-x-[1] date-options-select'>
                 <FormItem>
                   <Select onValueChange={(value: string) => dispatch(setAgency(value))} >
                     <SelectTrigger>
@@ -123,14 +112,12 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
                       {travelAgencies.map((agency: string, index: number) => (
                         <SelectItem
                           value={agency}
-                          className='border-b hover:bg-gray-200 pointer'
+                          className='border-b hover:bg-gray-200 pointer text-xs md:text-sm'
                           key={index}
                         >
                           {agency}
                         </SelectItem>
                       ))}
-                      <SelectItem value="m@google.com" className='border-b hover:bg-gray-200 pointer'>m@google.com</SelectItem>
-                      <SelectItem value="m@support.com" className='border-b hover:bg-gray-200 pointer'>m@support.com</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>
@@ -143,7 +130,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
                       {[...Array(10)].map((_, index) => (
                         <SelectItem
                           value={(index + 1).toString()}
-                          className='border-b hover:bg-gray-200 pointer'
+                          className='border-b hover:bg-gray-200 pointer text-xs md:text-sm'
                           key={index}
                         >
                           {(index + 1).toString()}
@@ -161,7 +148,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
                       {[...Array(5)].map((_, index) => (
                         <SelectItem
                           value={index.toString()}
-                          className='border-b hover:bg-gray-200 pointer'
+                          className='border-b hover:bg-gray-200 pointer text-xs md:text-sm'
                           key={index}
                         >
                           {index.toString()}
@@ -171,7 +158,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
                   </Select>
                 </FormItem>
               </div>
-              <div className='w-2/3 mx-auto relative flex pt-4 date-options'>
+              <div className='md:w-2/3 mx-auto relative flex pt-4 date-options'>
                 <button className='flex-grow text-gray-500' onClick={() => cancel()}>
                   Cancel
                 </button>

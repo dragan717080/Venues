@@ -80,7 +80,7 @@ const Header: FC = () => {
   }, []);
 
   return (
-    <header ref={headerRef} className='sticky top-0 z-20 bg-white shadow-md py-5 px-7 md:px-10'>
+    <header ref={headerRef} className='sticky top-0 z-20 bg-white shadow-md py-5 px-7 md:px-10 min-w-[100vw]'>
       <div className='grid grid-cols-3 '>
         <div onClick={() => router.push('/')} className="relative flex items-center h-17 pointer -my-3">
           <Image
@@ -104,7 +104,7 @@ const Header: FC = () => {
         <div className='flex row-end items-center space-x-4 text-gray-500 sm:pr-6 md:pr-18'>
           {session.status === 'authenticated'
             ? <div className='inline-flex'>
-              <div className='t-red'>{session.data!.user!.name}</div>
+              <div className='hidden md:block t-red'>{session.data!.user!.name}</div>
               <button className='t-cornflowerblue ml-3' onClick={async () => await signOut()} >Logout</button>
           </div>
             : <a href='auth'>Login</a>

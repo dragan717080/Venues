@@ -12,7 +12,7 @@ export default function Home() {
     <Provider store={store} >
       <Header />
       <div className="flex-1 col-v shadow-md">
-        <main className="flex min-h-screen flex-col items-center justify-between">
+        <main className="col-h min-h-screen justify-between min-w-[100vw]">
           <Venues />
           <TravelAgencies />
         </main>
