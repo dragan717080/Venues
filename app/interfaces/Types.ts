@@ -20,10 +20,10 @@ type AccWithTag<T extends string> = {
 
 type MongoObjectIDKey = string & { __isMongoObjectIDKey: true };
 
-type MongoItem = MongoObjectIDKey & { additionalProp: string };
+type MongoItem = MongoObjectIDKey & { [key: string]: any; [key: number]: any; };
 
 type FindArgs = Prisma.UserFindManyArgs | Prisma.UserFindUniqueArgs | Prisma.CityFindManyArgs | Prisma.CityFindUniqueArgs;
-type WhereInput = Prisma.UserWhereInput | Prisma.UserWhereUniqueInput | Prisma.CityWhereInput | Prisma.CityWhereUniqueInput;
+type WhereInput = Prisma.UserWhereInput | Prisma.UserWhereUniqueInput | Prisma.CityWhereInput | Prisma.CityWhereUniqueInput | Prisma.VenueWhereInput | Prisma.VenueWhereUniqueInput;
 
 type ApiHandler<T = any> = (req: NextRequest | Request, res: NextResponse<T>) => Promise<any>;
 

@@ -116,6 +116,7 @@ const getVenuesForCity: ApiHandler<Venues> = async (req, res) => {
 
     const venues = { 'num': venuesNum, 'details': venuesDetails, 'cityImg': img };
 
+    // Solution with OpenTripMap API in case the database is down
     return NextResponse.json(venues);
   } catch (error) {
     console.error('Error:', error);

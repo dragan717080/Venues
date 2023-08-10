@@ -9,3 +9,4 @@ export { default as HeaderSearchMenu } from './HeaderSearchMenu';
 export { default as HeaderDateRange } from './HeaderDateRange';
 export { default as LargestCities } from './LargestCities';
 export { default as TravelAgencies } from './TravelAgencies';
+export { default as Pagination } from './Pagination';

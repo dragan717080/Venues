@@ -58,17 +58,20 @@ model City {
 model Venue {
   id                     String   @id @default(auto()) @map("_id") @db.ObjectId
   name                   String
-  state                  String
+  state                  String?
   country                String
   country_code           String
-  coordinates            Float
-  address                String
-  neighbourhood          String
-  wikidata               String
+  //coordinates            Float
+  coordinates            Json
+  //address                String
+  neighbourhood          String?
+  wikidata               String?
   rate                   Int
   kinds                  String[]
+  image                  String
   // Default 400x300
-  preview                String
+  preview                String?
+  wikipedia              String
   wikipedia_extract      String
   wikipedia_extract_html String
 

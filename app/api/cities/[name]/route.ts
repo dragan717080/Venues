@@ -12,6 +12,7 @@ const getCityByName: ApiHandler = async (req, res) => {
         return NextResponse.json(city);
       } catch (error) {
         console.error('Error:', error);
+        return NextResponse.json({ error: 'Could not fetch city' }, { status: 500 })
     }
 }
 
