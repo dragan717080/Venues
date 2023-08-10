@@ -5,6 +5,7 @@ import { InputState } from '@/app/interfaces/redux';
 import { RootState } from '@/store';
 import { BaseCity } from '@/app/interfaces/City';
 import { setSelectedCity, setCitiesMatchingInput } from '@/store/citySlice';
+import { setIsDateRangeOpen } from '@/store/dateRangeSlice';
 
 const HeaderSearchMenu: FC = () => {
 
@@ -15,6 +16,7 @@ const HeaderSearchMenu: FC = () => {
   const handleSelectCity = (e: MouseEvent<HTMLElement>, city: BaseCity) => {
     dispatch(setSelectedCity(city.ascii_name));
     dispatch(setCitiesMatchingInput([]));
+    dispatch(setIsDateRangeOpen(true));
   }
 
   return (

@@ -13,6 +13,7 @@ import { differenceInDays } from 'date-fns';
 import travelAgencies from '@/config/travelAgencies';
 import { useFieldArray, useForm } from "react-hook-form";
 import { setDaysDuration, setAgency, setAdults, setChildren } from '@/store/visitSlice';
+import { setIsDateRangeOpen } from '@/store/dateRangeSlice';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './shadcn/Select';
@@ -30,6 +31,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
   const agency = useSelector((state: RootState) => state.visit.agency);
   const adults = useSelector((state: RootState) => state.visit.adults);
   const children = useSelector((state: RootState) => state.visit.children);
+  const isDateRangeOpen = useSelector((state: RootState) => state.dateRange.isDateRangeOpen);
 
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
@@ -68,7 +70,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
 
     //[durationInDays, agency, adults, children]
     params.set('duration', durationInDays.toString());
-
+    dispatch(setIsDateRangeOpen(false));
 
     toast.success(`You have booked ${durationInDays} days stay in ${selectedCity}`);
   }
@@ -76,6 +78,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
   const cancel = () => {
     dispatch(setUserInput(''));
     dispatch(setSelectedCity(''));
+    dispatch(setIsDateRangeOpen(false));
     show((toggleRef.current?.parentNode as HTMLElement) ?? undefined, true);
   }
 
@@ -84,11 +87,11 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
     (node.getElementsByClassName('rdrInputRange')[0] as HTMLDivElement).innerText = `Pick days to visit ${selectedCity}!`;
     show(node, selectedCity === '');
 
-  }, [selectedCity])
+  }, [selectedCity, isDateRangeOpen])
 
   return (
 
-    <div className={`${selectedCity ? 'block' : 'hidden'} origin-top-left date`}>
+    <div className={`${isDateRangeOpen ? 'block' : 'hidden'} origin-top-left date`}>
       <div ref={toggleShow} className='translate-down-gradually bg-white w-full md:scale-100 mx-auto transform flex flex-col md:items-center'>
         <div ref={toggleRef} >
           <div>

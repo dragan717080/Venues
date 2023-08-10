@@ -17,3 +17,7 @@ export interface VisitState {
   adults: number;
   children: number;
 }
+
+export interface DateRangeState {
+  isDateRangeOpen: boolean;
+}

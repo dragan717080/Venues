@@ -94,7 +94,7 @@ const Header: FC = () => {
         <div className='flex items-center pt-2.5 pb-2 md: py-2 md:border-2 rounded-full md:shadow-sm'>
           <input
             type="text"
-            placeholder='Start your search'
+            placeholder='Search for cities'
             className='ml-1 pl-4 border-none outline-none bg-transparent flex-grow z-40 text-sm text-gray-600 placeholder-gray-300'
             onChange={handleInputChange}
             ref={searchRef}
