@@ -77,7 +77,7 @@ const HeaderDateRange: FC<HeaderDateProps> = ({ header, originalHeaderHeight }) 
 
   const cancel = () => {
     dispatch(setUserInput(''));
-    dispatch(setSelectedCity(''));
+    //dispatch(setSelectedCity(''));
     dispatch(setIsDateRangeOpen(false));
     show((toggleRef.current?.parentNode as HTMLElement) ?? undefined, true);
   }
