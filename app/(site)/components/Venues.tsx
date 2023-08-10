@@ -30,6 +30,7 @@ const Venues: FC = () => {
 
   useEffect(() => {
     (async () => {
+      console.log('selectedCity', selectedCity)
       if (!selectedCity) return;
       const response = await axios.get(`/api/cities/${selectedCity}/venues`)
       const venuesInCity = await response.data;
@@ -72,7 +73,7 @@ const Venues: FC = () => {
             </ul>
             <div className="w-auto md:w-[18.75rem] lg:w-[37.5rem] xl:w-[43.75rem] col-h py-5 px-2 sm:px-4 lg:px-7 bg-gray-200 ml-auto">
               <div className='relative h-[8rem] lg:h-[12rem] w-[12rem] lg:w-[25rem] mt-7 mb-5'>
-                <Image layout='fill' alt={`${selectedVenue.name} Image`} src={selectedVenue.image!} className='rounded-xl' />
+                <img alt={`${selectedVenue.name} Image`} src={selectedVenue.image!} className='rounded-xl h-full w-full' />
               </div>
               <div className='px-3 sm:px-6 lg:px-10'>
                 <p className='bold py-4 text-center'>{selectedVenue.name}</p>

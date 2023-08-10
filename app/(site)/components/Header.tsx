@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInput } from '@/store/inputSlice';
 import { setCityNames, setCitiesMatchingInput, setSelectedCity } from '@/store/citySlice';
+import { setIsDateRangeOpen } from '@/store/dateRangeSlice';
 import { RootState } from '@/store';
 import HeaderSearchMenu from './HeaderSearchMenu';
 import { HeaderDateRange } from '.';
@@ -64,6 +65,7 @@ const Header: FC = () => {
     setCitiesThatMatch(cities);
     dispatch(setUserInput(searchRef.current!.value));
     dispatch(setSelectedCity(''));
+    dispatch(setIsDateRangeOpen(false));
   };
 
   useEffect(() => {
